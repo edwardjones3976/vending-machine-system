@@ -1,6 +1,8 @@
 #pragma once
-#include "SalesData.h"
+#ifndef ADMIN_H
+#define ADMIN_H
 #include <string>
+#include "SalesData.h"
 
 class Admin {
 private:
@@ -9,7 +11,9 @@ private:
     bool loginStatus;
 
 public:
-    Admin();
-    bool login(std::string code);
-    SalesData* monitorSalesData();
+    Admin(int id, const std::string& code);
+    bool login(const std::string& accessCode);
+    SalesData monitorSalesData();
 };
+
+#endif
