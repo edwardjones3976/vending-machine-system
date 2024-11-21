@@ -1,4 +1,6 @@
 #pragma once
+#ifndef PAYMENTPROCESSOR_H
+#define PAYMENTPROCESSOR_H
 
 class PaymentProcessor {
 private:
@@ -10,4 +12,7 @@ public:
     bool processPayment(float amount);
     float returnChange(float changeAmount);
     bool cancelPayment();
+    void displayPaymentDetails() const;
 };
+
+#endif // PAYMENTPROCESSOR_H
