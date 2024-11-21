@@ -1,24 +1,20 @@
 #include "PaymentProcessor.h"
+#include <iostream>
 
-PaymentProcessor::PaymentProcessor() : totalAmount(0) {}
+using namespace std;
+
+PaymentProcessor::PaymentProcessor() : totalAmount(0.0f) {}
 
 bool PaymentProcessor::validateCurrency(float inputAmount) {
-    const int validAmounts[] = {1, 5, 10, 25, 100, 500, 1000, 2000};
-    
-    for (int amount : validAmounts) {
-        if (inputAmount == amount) {
-            return true;
-        }
-    }
-    return false;
+    return inputAmount > 0;
 }
 
 bool PaymentProcessor::processPayment(float amount) {
-    if (amount <= 0 || amount > 2000) {
-        return false;
+    if (validateCurrency(amount)) {
+        totalAmount += amount;
+        return true;
     }
-    totalAmount += amount;
-    return true;
+    return false;
 }
 
 float PaymentProcessor::returnChange(float changeAmount) {
@@ -26,11 +22,14 @@ float PaymentProcessor::returnChange(float changeAmount) {
         totalAmount -= changeAmount;
         return changeAmount;
     }
-    return 0;
+    return 0.0f;
 }
 
 bool PaymentProcessor::cancelPayment() {
-    float refund = totalAmount;
-    totalAmount = 0;
-    return refund > 0;
+    totalAmount = 0.0f;
+    return true;
+}
+
+void PaymentProcessor::displayPaymentDetails() const {
+    cout << "Total Amount Processed: $" << totalAmount << "\n";
 }
